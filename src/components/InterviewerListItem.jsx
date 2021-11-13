@@ -32,7 +32,6 @@ export default function InterviewerListItem(props) {
   )
 }
 
-
 // const interviewer = {
 //   id: 1,
 //   name: "Sylvia Palmer",
