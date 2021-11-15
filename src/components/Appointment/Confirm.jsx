@@ -2,8 +2,7 @@ import React from "react";
 import Button from "components/Button";
 
 export default function Confirm(props) {
-  console.log(props)
-
+  // console.log(props)
   const { message, onCancel, onConfirm } = props
 
   return (
