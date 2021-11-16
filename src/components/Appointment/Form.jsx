@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+
 
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
 export default function Form(props) {
-
-console.log(props)
+  const [student, setStudent] = useState(props.student || "");
+  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  
+  console.log(props)
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -16,10 +19,10 @@ console.log(props)
             name="name"
             type="text"
             placeholder="Enter Student Name"
-          /*
-            This must be a controlled component
-            your code goes here
-          */
+   
+            value={student}
+            onChange={(event) => setStudent(event.target.value)}
+
           />
         </form>
         <InterviewerList
