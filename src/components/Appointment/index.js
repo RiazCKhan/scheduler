@@ -7,9 +7,18 @@ import Empty from "components/Appointment/Empty";
 import "./styles.scss";
 
 export default function Appointment(props) {
-    return (
-      <article className="appointment">
-        {props.time ? <span>Appointment at {props.time}</span> : <span>No Appointments</span>}
-      </article>
-    );
+
+  const { time } = props
+
+  return (
+    <article className="appointment">
+      <Header
+        time={time}
+      />
+      {props.interview ? <Show /> : <Empty />}
+    </article>
+  );
 }
+
+// {props.time ? <span>Appointment at {props.time}</span> : <span>No Appointments</span>}
+// This code belongs to the "The Appointment Component" Exercise
