@@ -7,7 +7,7 @@ import Empty from "components/Appointment/Empty";
 import "./styles.scss";
 
 export default function Appointment(props) {
-  console.log('I am all props', props)
+  // console.log('I am all props', props)
   // console.log('I am student', props.interview.student)
   // console.log('I am interviwer', props.interview)
 
