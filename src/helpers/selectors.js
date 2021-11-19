@@ -2,6 +2,7 @@
 
 export function getAppointmentsForDay(state, day) {
 
+  // Validation: if days data is empty
   if (state.days.length === 0) {
     return [];
   }
@@ -10,7 +11,8 @@ export function getAppointmentsForDay(state, day) {
     return element.name === day
   });
 
-  if (filteredByDay.length === 0 ) {
+  // Validation: if no day found 
+  if (filteredByDay.length === 0) {
     return [];
   };
 
