@@ -5,6 +5,7 @@ import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "components/Appointment";
 
+
 const appointments = {
   "1": {
     id: 1,
@@ -45,7 +46,15 @@ const appointments = {
 };
 
 export default function Application(props) {
-  const [day, setDay] = useState([]);
+  const [days, setDay] = useState([]);
+
+  useEffect(() => {
+    axios.get("/api/days").then((response) => {
+      // console.log(response.data)
+      setDay(response.data)
+    });
+  }, []);
+
 
   const appointmentsArr = Object.values(appointments)
   const appt = appointmentsArr.map((appt) => {
@@ -73,7 +82,7 @@ export default function Application(props) {
         <nav className="sidebar__menu">
           <DayList
             days={days}
-            value={day}
+            value={days}
             onChange={setDay}
           />
         </nav>
