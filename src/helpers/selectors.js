@@ -1,22 +1,39 @@
+// const day = "Monday"
+
 export function getAppointmentsForDay(state, day) {
-  console.log('hi im state:', state)
-  // console.log('hi im day:', day)
 
-  const filteredDays = state.days.filter(day => day.name === day)
-  return filteredDays
-  // console.log(day)
-  // console.log(day.name)
-  // console.log(filteredDays)
-  
-  
+  if (state.days.length === 0) {
+    return [];
+  }
 
+  const filteredByDay = state.days.filter(element => {
+    return element.name === day
+  });
+
+  if (filteredByDay.length === 0 ) {
+    return [];
+  };
+
+  const filteredDayAppointmentArray = filteredByDay[0].appointments
+
+  // Function will convert filteredDayAppointmentArray of numbers to array of strings
+  const AppointmentArr = filteredDayAppointmentArray.map(element => {
+    return String(element)
+  });
+
+  // Function will match appointments based on day 
+  const matchedAppointmentID = [];
+  const filteredAppointmentID = AppointmentArr.filter(element => {
+    if (AppointmentArr.includes(element)) {
+      matchedAppointmentID.push(element)
+    }
+  });
+
+  // Function will return an array of appointment details
+  const appointmentArray = [];
+  matchedAppointmentID.forEach(element => {
+    appointmentArray.push(state.appointments[element])
+  });
+
+  return appointmentArray
 }
-
-
-function selectUserByName(state, name) {
-  const filteredNames = state.users.filter(user => user.name === name);
-  return filteredNames;
-}
-
-/* We need to start by finding the object in our state.days array who's name matches the provided day.
- With this information we can now access that specific days appointment array. */
