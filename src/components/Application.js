@@ -50,11 +50,11 @@ export default function Application(props) {
     days: [],
     appointments: {}
   });
-
-  const dailyAppointments = [];
+  
+const dailyAppointments = [];
 
   const setDay = (day) => setState({ ...state, day });
-  const setDays = (days) => setState(prev => ({ ...prev, days }));
+  const setDays = (days) => setState(prev => ({ ...prev, days}));
 
   useEffect(() => {
     axios.get("/api/days").then((response) => {
@@ -64,8 +64,7 @@ export default function Application(props) {
   }, []);
 
   // const appointmentsArr = Object.values(appointments)
-  // const appt = appointmentsArr
-  dailyAppointments.map((appt) => {
+  const appointment = dailyAppointments.map((appt) => {
     // console.log(appt.interview)
     return (
       <Appointment
@@ -98,7 +97,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {dailyAppointments} {/* To be updated with dailyAppointment map FN */}
+        {appointment}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
