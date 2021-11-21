@@ -12,27 +12,20 @@ export default function Application(props) {
     days: [],
     appointments: {}
   });
-  
-const dailyAppointments = getAppointmentsForDay(state, state.day)
 
-console.log("APP.JS STATE +++", state)
-console.log("APP.JS DAY ---", state.day)
-
+  const dailyAppointments = getAppointmentsForDay(state, state.day)
+  // console.log("APP.JS STATE +++", state)
+  // console.log("APP.JS DAY ---", state.day)
 
   const setDay = (day) => setState({ ...state, day });
-  // const setDays = (days) => setState(prev => ({ ...prev, days}));
 
   useEffect(() => {
-    const apiDays = axios.get("/api/days")
-    const apiAppointments = axios.get("/api/appointments")
-    // const apiInterviewers --- final end point = "/api/interviewers"
-
     Promise.all([
-      apiDays,
-      apiAppointments
+      axios.get("/api/days"),
+      axios.get("/api/appointments")
     ]).then((all) => {
       console.log('im on everything', all)
-      setState(prev => ({ ...prev, apiDays: all[0].data, apiAppointments: all[1].data }))
+      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data }))
     }).catch((error) => {
       console.log("promise all api resolution error:", error)
     })
