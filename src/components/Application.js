@@ -10,7 +10,8 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
 
   const dailyAppointments = getAppointmentsForDay(state, state.day)
@@ -22,10 +23,11 @@ export default function Application(props) {
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
-      axios.get("/api/appointments")
+      axios.get("/api/appointments"),
+      axios.get("/api/interviewers")
     ]).then((all) => {
-      console.log('im on everything', all)
-      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data }))
+      console.log('im on int', all[2].data)
+      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }))
     }).catch((error) => {
       console.log("promise all api resolution error:", error)
     })
@@ -36,10 +38,12 @@ export default function Application(props) {
     return (
       <Appointment
         key={appt.id}
-        {...appt}
+        id={appt.id}
+        time={appt.time}
+        interview={appt.interview}
       />
-    )
-  })
+    );
+  });
 
   return (
     <main className="layout">
