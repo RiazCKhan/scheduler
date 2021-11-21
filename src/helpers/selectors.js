@@ -31,7 +31,7 @@ export function getAppointmentsForDay(state, day) {
     }
   });
 
-  // Function will return an array of appointment details
+  // Function will return an array of appointment details/obj
   const appointmentArrayObj = [];
   matchedAppointmentID.forEach(element => {
     appointmentArrayObj.push(state.appointments[element])
