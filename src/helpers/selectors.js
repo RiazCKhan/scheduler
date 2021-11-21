@@ -9,6 +9,8 @@ export function getAppointmentsForDay(state, day) {
     return element.name === day
   });
 
+  // console.log(filteredByDay)
+
   // Validation: if no day found 
   if (filteredByDay.length === 0) {
     return [];
@@ -39,5 +41,33 @@ export function getAppointmentsForDay(state, day) {
 }
 
 export function getInterview(state, interview) {
+  // console.log('ze state', state.appointments)
+  // console.log('ze interview', interview)
 
+  // console.log(interview)
+  if (!interview) {
+    return null;
+  }
+
+  const interviewObj = {};
+
+  // Function will convert interviewerID strings to numbers
+  const interviewerIDArray = Object.keys(state.interviewers).map(element => {
+    return Number(element)
+  });
+  //console.log('arr of all interviewer ids', interviewerIDArray)
+
+  const matchInterviewerWithStudent = interviewerIDArray.filter(element => {
+    // console.log('each Interviewer ID from mock data', element)
+    // console.log('interviewer obj pulling matching interviewer ID:', interview.interviewer)
+    return element === interview.interviewer
+  });
+
+  // console.log(matchInterviewerWithStudent[0])
+  const interviewerID = matchInterviewerWithStudent[0];
+
+  interviewObj.student = interview.student;
+  interviewObj.interviewer = state.interviewers[interviewerID];
+
+  return interviewObj;
 }
