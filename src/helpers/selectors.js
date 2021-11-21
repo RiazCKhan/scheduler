@@ -1,5 +1,3 @@
-// const day = "Monday"
-
 export function getAppointmentsForDay(state, day) {
 
   // Validation: if days data is empty
@@ -38,4 +36,8 @@ export function getAppointmentsForDay(state, day) {
   });
 
   return appointmentArrayObj
+}
+
+export function getInterview(state, interview) {
+
 }
