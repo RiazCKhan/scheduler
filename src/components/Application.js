@@ -35,9 +35,6 @@ export default function Application(props) {
     const interview = getInterview(state, appointment.interview)
     const interviewers = getInterviewersForDay(state, appointment.interviewers)
 
-    console.log(interviewers)
-    console.log(appointment)
-
     return (
       <Appointment
         key={appointment.id}
