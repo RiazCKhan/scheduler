@@ -29,6 +29,8 @@ export function getAppointmentsForDay(state, day) {
   return appointmentArrayObj
 }
 
+
+
 export function getInterviewersForDay(state, day) {
   // Validation: if days data is empty
   if (state.days.length === 0) {
@@ -59,6 +61,8 @@ export function getInterviewersForDay(state, day) {
 
   return interviewerArray
 }
+
+
 
 export function getInterview(state, interview) {
   // console.log('ze state', state.appointments)
