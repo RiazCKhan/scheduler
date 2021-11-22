@@ -14,10 +14,10 @@ export function getAppointmentsForDay(state, day) {
     return [];
   };
 
-  const filteredDayAppointmentArray = filteredByDay[0].appointments
+  const filteredByDayAppointmentArray = filteredByDay[0].appointments
 
-  // Function will convert filteredDayAppointmentArray of numbers to array of strings
-  const filteredAppointmentArray = filteredDayAppointmentArray.map(element => {
+  // Function will convert filteredByDayAppointmentArray of numbers to array of strings
+  const filteredAppointmentArray = filteredByDayAppointmentArray.map(element => {
     return String(element)
   });
 
@@ -29,9 +29,6 @@ export function getAppointmentsForDay(state, day) {
 
   return appointmentArrayObj
 }
-
-
-
 
 export function getInterviewersForDay(state, day) {
 
@@ -49,29 +46,22 @@ export function getInterviewersForDay(state, day) {
     return [];
   };
 
-  const filteredDayAppointmentArray = filteredByDay[0].appointments
+  const filteredByDayInterviewerArray = filteredByDay[0].interviewers
 
-  // Function will convert filteredDayAppointmentArray of numbers to array of strings
-  const filteredAppointmentArray = filteredDayAppointmentArray.map(element => {
+  // Function will convert filteredByDayInterviewerArray of numbers to array of strings
+  const filteredInterviewerArray = filteredByDayInterviewerArray.map(element => {
     return String(element)
   });
 
   // Function will return an array of appointment details/obj
-  const appointmentArrayObj = [];
-  filteredDayAppointmentArray.forEach(element => {
-    appointmentArrayObj.push(state.appointments[element])
+  const interviewerArray = [];
+  filteredInterviewerArray.forEach(element => {
+    interviewerArray.push(state.interviewers[element].name)
   });
 
-  return appointmentArrayObj
+    console.log(interviewerArray)
+  return interviewerArray
 }
-
-
-
-
-
-
-
-
 
 export function getInterview(state, interview) {
   // console.log('ze state', state.appointments)
