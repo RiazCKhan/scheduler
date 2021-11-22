@@ -9,8 +9,6 @@ export function getAppointmentsForDay(state, day) {
     return element.name === day
   });
 
-  // console.log(filteredByDay)
-
   // Validation: if no day found 
   if (filteredByDay.length === 0) {
     return [];
@@ -23,22 +21,17 @@ export function getAppointmentsForDay(state, day) {
     return String(element)
   });
 
-  // Function will match appointments based on day 
-  const matchedAppointmentID = [];
-  const filteredAppointmentID = filteredAppointmentArray.filter(element => {
-    if (filteredAppointmentArray.includes(element)) {
-      matchedAppointmentID.push(element)
-    }
-  });
-
   // Function will return an array of appointment details/obj
   const appointmentArrayObj = [];
-  matchedAppointmentID.forEach(element => {
+  filteredAppointmentArray.forEach(element => {
     appointmentArrayObj.push(state.appointments[element])
   });
 
   return appointmentArrayObj
 }
+
+
+
 
 export function getInterviewersForDay(state, day) {
 
@@ -51,8 +44,6 @@ export function getInterviewersForDay(state, day) {
     return element.name === day
   });
 
-  // console.log(filteredByDay)
-
   // Validation: if no day found 
   if (filteredByDay.length === 0) {
     return [];
@@ -65,22 +56,22 @@ export function getInterviewersForDay(state, day) {
     return String(element)
   });
 
-  // Function will match appointments based on day 
-  const matchedAppointmentID = [];
-  const filteredAppointmentID = filteredAppointmentArray.filter(element => {
-    if (filteredAppointmentArray.includes(element)) {
-      matchedAppointmentID.push(element)
-    }
-  });
-
   // Function will return an array of appointment details/obj
   const appointmentArrayObj = [];
-  matchedAppointmentID.forEach(element => {
+  filteredDayAppointmentArray.forEach(element => {
     appointmentArrayObj.push(state.appointments[element])
   });
 
   return appointmentArrayObj
 }
+
+
+
+
+
+
+
+
 
 export function getInterview(state, interview) {
   // console.log('ze state', state.appointments)
