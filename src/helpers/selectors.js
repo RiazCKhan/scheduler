@@ -1,5 +1,4 @@
 export function getAppointmentsForDay(state, day) {
-
   // Validation: if days data is empty
   if (state.days.length === 0) {
     return [];
@@ -26,12 +25,11 @@ export function getAppointmentsForDay(state, day) {
   filteredAppointmentArray.forEach(element => {
     appointmentArrayObj.push(state.appointments[element])
   });
-
+  // console.log(appointmentArrayObj)
   return appointmentArrayObj
 }
 
 export function getInterviewersForDay(state, day) {
-
   // Validation: if days data is empty
   if (state.days.length === 0) {
     return [];
@@ -48,18 +46,17 @@ export function getInterviewersForDay(state, day) {
 
   const filteredByDayInterviewerArray = filteredByDay[0].interviewers
 
-  // Function will convert filteredByDayInterviewerArray of numbers to array of strings
+  // Function will take interviewers arr from state.days and convert arr to strings to match state.interviewers key
   const filteredInterviewerArray = filteredByDayInterviewerArray.map(element => {
     return String(element)
   });
 
-  // Function will return an array of appointment details/obj
+  // Function will use array of interviwer keys to identify interviewer and push to arr
   const interviewerArray = [];
   filteredInterviewerArray.forEach(element => {
-    interviewerArray.push(state.interviewers[element].name)
+    interviewerArray.push(state.interviewers[element])
   });
 
-    console.log(interviewerArray)
   return interviewerArray
 }
 
