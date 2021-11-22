@@ -16,14 +16,9 @@ export default function useVisualMode(inital) {
     history.pop()
     // console.log('Back FN History ARR', history)
     setMode(history[history.length - 1])
-
-    // Mentor: Lovemore Solution - BELOW
-    const newHistory = history.slice(0, history.length - 1)
-    setHistory(newHistory)
-    setMode(newHistory[newHistory.length - 1])
   }
+  // EDGE CASE - What happens IF History ARR only has one item? Back() would run into an empty History [];
 
-// EDGE CASE - What happens IF History ARR only has one item? Back() would run into an empty History [];
 
   return { mode, transition, back }
 };
