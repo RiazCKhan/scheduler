@@ -7,21 +7,16 @@ export default function useVisualMode(inital) {
   function transition(value) {
     setHistory([inital, mode, value])
     setMode(value)
-
-    // console.log('init 1 then 2 transition', mode)
-    // console.log('Transition FN History ARR', history)
   }
 
   function back() {
     history.pop()
-    // console.log('Back FN History ARR', history)
+    // EDGE CASE - What happens IF History ARR only has one item? Back() would run into an empty History [];
     if (history.length === 0) {
       return undefined;
     }
     setMode(history[history.length - 1])
   }
-  // EDGE CASE - What happens IF History ARR only has one item? Back() would run into an empty History [];
-
 
   return { mode, transition, back }
 };
