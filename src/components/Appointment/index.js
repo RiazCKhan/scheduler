@@ -4,25 +4,31 @@ import Header from "components/Appointment/Header";
 import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
 
+import useVisualMode from "hooks/useVisualMode";
 import "./styles.scss";
+import { moduleExpression } from "@babel/types";
+
+const EMPTY = "EMPTY";
+const SHOW = "SHOW";
 
 export default function Appointment(props) {
-  // console.log('I am all props', props)
-  // console.log('I am student', props.interview.student)
-  // console.log('I am interviwer', props.interview)
 
-  // const interviewerObj = props.interview.interviewer
-  // console.log('interview obj:', props.interview.interviewer)
-  // console.log("interviewObj Var:", interviewerObj)
+  const { mode, transition, back } = useVisualMode(
+    props.interview ? SHOW : EMPTY
+  )
 
   return (
     <article className="appointment">
       <Header time={props.time} />
-      {props.interview ?
+
+      {mode === EMPTY && <Empty onAdd={() => console.log("Clicked onAdd")} />}
+      {mode === SHOW && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
-        /> : <Empty />}
+        />
+      )}
+
     </article>
   );
 }
