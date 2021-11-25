@@ -28,15 +28,8 @@ export default function Application(props) {
   }, []);
 
   const bookInterview = (id, interview) => {
-    console.log('dis ID', id);
-    console.log('dis INTERVIEW', interview);
-  }
-
-  const save = (name, interviewer) => {
-    const interview = {
-      student: name,
-      interviewer
-    };
+    console.log('bookInterview FN ID', id);
+    console.log('bookInterview FN INTERVIEW', interview);
   }
 
   const setDay = (day) => setState({ ...state, day });
@@ -55,7 +48,6 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
-        onSave={save}
       />
     );
   });
