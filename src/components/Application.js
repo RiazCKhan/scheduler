@@ -13,7 +13,7 @@ export default function Application(props) {
     appointments: {},
     interviewers: {}
   });
-  
+
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
@@ -26,7 +26,19 @@ export default function Application(props) {
       console.log("promise all api resolution error:", error)
     })
   }, []);
-  
+
+  const bookInterview = (id, interview) => {
+    console.log('dis ID', id);
+    console.log('dis INTERVIEW', interview);
+  }
+
+  const save = (name, interviewer) => {
+    const interview = {
+      student: name,
+      interviewer
+    };
+  }
+
   const setDay = (day) => setState({ ...state, day });
 
   const dailyAppointments = getAppointmentsForDay(state, state.day)
@@ -35,8 +47,6 @@ export default function Application(props) {
     const interview = getInterview(state, appointment.interview)
     const interviewers = getInterviewersForDay(state, state.day)
 
-    console.log(interviewers)
-
     return (
       <Appointment
         key={appointment.id}
@@ -44,6 +54,8 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
+        onSave={save}
       />
     );
   });
