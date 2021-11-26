@@ -23,7 +23,7 @@ export default function Application(props) {
       // console.log('im on int', all[2].data)
       setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }))
     }).catch((error) => {
-      console.log("promise all api resolution error:", error)
+      console.log("CATCH all api resolution error:", error)
     })
   }, []);
 
@@ -32,17 +32,22 @@ export default function Application(props) {
       ...state.appointments[id],
       interview: { ...interview }
     };
-    const appointments = {
+    const newAppointments = {
       ...state.appointments,
       [id]: appointment
     };
-    setState({
-      ...state,
-      appointments
-    });
 
-    console.log('bookInterview FN ID', id);
-    console.log('bookInterview FN INTERVIEW', interview);
+    return axios.put(`/api/appointments/${id}`, {interview})
+      .then((result) => {
+        setState({
+          ...state,
+          appointments: newAppointments
+        });
+      }).catch((error) => {
+        console.log("CATCH axios put error", error)
+      })
+  
+
   }
 
   const setDay = (day) => setState({ ...state, day });
