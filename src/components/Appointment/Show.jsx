@@ -6,7 +6,7 @@ export default function Show(props) {
   // console.log(interviewersArray[0].name)
   // console.log('show component:', props)
 
-  const { remove } = props
+  const { onDelete, onEdit } = props
 
   return (
     <main className="appointment__card appointment__card--show">
@@ -23,13 +23,13 @@ export default function Show(props) {
             className="appointment__actions-button"
             src="images/edit.png"
             alt="Edit"
-            onClick={props.onEdit}
+            onClick={onEdit}
           />
           <img
             className="appointment__actions-button"
             src="images/trash.png"
             alt="Delete"
-            onClick={remove}
+            onClick={onDelete}
           />
         </section>
       </section>
