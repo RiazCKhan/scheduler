@@ -22,7 +22,11 @@ export default function Appointment(props) {
       interviewer
     };
     bookInterview(props.id, interview)
-    transition(SHOW)
+    .then(() => {
+      transition(SHOW)
+    }).catch((error) => {
+      console.log("CATCH bookInterview error", error)
+    })
   }
 
   const { mode, transition, back } = useVisualMode(
