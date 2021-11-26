@@ -37,14 +37,11 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    // console.log(interview)
-    // console.log(appointments)
-
     return axios.put(`/api/appointments/${id}`, { interview })
       .then((result) => {
         setState({
           ...state,
-          appointments: appointments
+          appointments
         })
       }).catch((error) => {
         console.log("CATCH axios put error", error)
@@ -54,28 +51,22 @@ export default function Application(props) {
   const cancelInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
+      interview: null
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
     };
   
-    // console.log(id)
-    // console.log(interview)
-    console.log(state.appointments)
-    console.log(state.appointments[id])
-
     return axios.delete(`/api/appointments/${id}`)
       .then((result) => {
-        
-        console.log('new obj set interviewer to null', 
-        { ...state.appointments[id], interview: null })
-
         setState({
-          ...state.appointments[id],
-          interview: { ...interview, interviewer: null }
+          ...state,
+          appointments
         })
       }).catch((error) => {
         console.log("CATCH axios delete error", error)
       })
-
   }
 
   const setDay = (day) => setState({ ...state, day });
