@@ -32,7 +32,7 @@ export default function Application(props) {
       ...state.appointments[id],
       interview: { ...interview }
     };
-    const newAppointments = {
+    const appointments = {
       ...state.appointments,
       [id]: appointment
     };
@@ -41,13 +41,11 @@ export default function Application(props) {
       .then((result) => {
         setState({
           ...state,
-          appointments: newAppointments
-        });
+          appointments: appointments
+        })
       }).catch((error) => {
         console.log("CATCH axios put error", error)
       })
-  
-
   }
 
   const setDay = (day) => setState({ ...state, day });
