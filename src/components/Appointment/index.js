@@ -14,15 +14,16 @@ const CREATE = "CREATE"
 
 export default function Appointment(props) {
 
-const { bookInterview } = props
+  const { bookInterview } = props
 
-const save = (name, interviewer) => {
-  const interview = {
-    student: name,
-    interviewer
-  };
-  bookInterview(props.id, interview)
-}
+  const save = (name, interviewer) => {
+    const interview = {
+      student: name,
+      interviewer
+    };
+    bookInterview(props.id, interview)
+    transition(SHOW)
+  }
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
@@ -44,7 +45,7 @@ const save = (name, interviewer) => {
           interviewers={props.interviewers}
         />
       )}
-      
+
       {mode === SHOW && (
         <Show
           student={props.interview.student}
@@ -55,6 +56,3 @@ const save = (name, interviewer) => {
     </article>
   );
 }
-
-// {props.time ? <span>Appointment at {props.time}</span> : <span>No Appointments</span>}
-// This code belongs to the "The Appointment Component" Exercise
