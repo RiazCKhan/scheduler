@@ -4,13 +4,15 @@ import Header from "components/Appointment/Header";
 import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
 import Form from "components/Appointment/Form";
+import Status from "components/Appointment/Status";
 
 import useVisualMode from "hooks/useVisualMode";
 import "./styles.scss";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
-const CREATE = "CREATE"
+const CREATE = "CREATE";
+const SAVING = "SAVING";
 
 export default function Appointment(props) {
 
@@ -21,12 +23,14 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
+    transition(SAVING)
+
     bookInterview(props.id, interview)
-    .then(() => {
-      transition(SHOW)
-    }).catch((error) => {
-      console.log("CATCH bookInterview error", error)
-    })
+      .then(() => {
+        transition(SHOW)
+      }).catch((error) => {
+        console.log("CATCH bookInterview error", error)
+      })
   }
 
   const { mode, transition, back } = useVisualMode(
@@ -54,6 +58,12 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+        />
+      )}
+
+      {mode === SAVING && (
+        <Status
+        message={SAVING}
         />
       )}
 
