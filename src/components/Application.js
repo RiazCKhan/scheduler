@@ -28,6 +28,10 @@ export default function Application(props) {
   }, []);
 
   const bookInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
     console.log('bookInterview FN ID', id);
     console.log('bookInterview FN INTERVIEW', interview);
   }
