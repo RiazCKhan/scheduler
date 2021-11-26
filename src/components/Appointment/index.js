@@ -13,10 +13,11 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
+const DELETING = "DELETING";
 
 export default function Appointment(props) {
 
-  const { bookInterview } = props
+  const { bookInterview, cancelInterview } = props
 
   const save = (name, interviewer) => {
     const interview = {
@@ -31,6 +32,20 @@ export default function Appointment(props) {
       }).catch((error) => {
         console.log("CATCH bookInterview error", error)
       })
+  }
+
+  const remove = () => {
+
+    transition(DELETING)
+
+    cancelInterview(props.id)
+    .then(() => {
+      transition(EMPTY);
+    }).catch((error) => {
+      console.log("CATCH cancelInterview error", error)
+    })
+
+    // console.log(props.id)
   }
 
   const { mode, transition, back } = useVisualMode(
@@ -58,12 +73,19 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          remove={remove}
         />
       )}
 
       {mode === SAVING && (
         <Status
-        message={SAVING}
+          message={Saving}
+        />
+      )}
+
+      {mode === DELETING && (
+        <Status
+          message={Deleting}
         />
       )}
 

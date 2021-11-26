@@ -5,6 +5,9 @@ export default function Show(props) {
   // const interviewersArray = props.interviewers
   // console.log(interviewersArray[0].name)
   // console.log('show component:', props)
+
+  const { remove } = props
+
   return (
     <main className="appointment__card appointment__card--show">
       <section className="appointment__card-left">
@@ -26,7 +29,7 @@ export default function Show(props) {
             className="appointment__actions-button"
             src="images/trash.png"
             alt="Delete"
-            onClick={props.onDelete}
+            onClick={remove}
           />
         </section>
       </section>
