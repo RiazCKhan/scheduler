@@ -12,8 +12,8 @@ import "./styles.scss";
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
-const SAVING = "SAVING";
-const DELETING = "DELETING";
+const SAVING = "Saving";
+const DELETING = "Deleting";
 
 export default function Appointment(props) {
 
@@ -24,7 +24,7 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    transition(SAVING)
+    transition(SAVING);
 
     bookInterview(props.id, interview)
       .then(() => {
@@ -35,17 +35,14 @@ export default function Appointment(props) {
   }
 
   const remove = () => {
-
-    transition(DELETING)
+    transition(DELETING);
 
     cancelInterview(props.id)
     .then(() => {
       transition(EMPTY);
     }).catch((error) => {
       console.log("CATCH cancelInterview error", error)
-    })
-
-    // console.log(props.id)
+    });
   }
 
   const { mode, transition, back } = useVisualMode(
@@ -79,13 +76,13 @@ export default function Appointment(props) {
 
       {mode === SAVING && (
         <Status
-          message={Saving}
+          message={SAVING}
         />
       )}
 
       {mode === DELETING && (
         <Status
-          message={Deleting}
+          message={DELETING}
         />
       )}
 
