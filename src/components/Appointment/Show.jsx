@@ -5,6 +5,7 @@ export default function Show(props) {
   // const interviewersArray = props.interviewers
   // console.log(interviewersArray[0].name)
   // console.log('show component:', props)
+  // console.log('$$$', props.interviewer.name)
 
   const { onDelete, onEdit } = props
 
