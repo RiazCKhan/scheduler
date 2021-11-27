@@ -19,11 +19,12 @@ const DELETING = "Deleting";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
 
-// const ERROR_SAVE = "ERROR_SAVE";
-// const ERROR_DELETE = "ERROR_DELETE";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 const confirmDeleteMessage = "Are you sure you would like to delete?";
-// const errorSaveMessage = "Failed to save appointment";
+const errorSaveMessage = "Failed to save appointment";
+const errorDeleteMessage = "Failed to delete appointment";
 
 export default function Appointment(props) {
 
@@ -40,25 +41,25 @@ export default function Appointment(props) {
       .then(() => {
         transition(SHOW)
       }).catch((error) => {
-        // transition(ERROR_SAVE)
+        transition(ERROR_SAVE, true)
         console.log("CATCH bookInterview error", error)
       })
   }
 
-  const onDelete = () => {
-    transition(CONFIRM);
-  }
-
   const onConfirm = () => {
-    transition(DELETING);
+    transition(DELETING, true);
 
     cancelInterview(props.id)
       .then(() => {
         transition(EMPTY);
       }).catch((error) => {
-        // transition(ERROR_DELETE)
+        transition(ERROR_DELETE, true)
         console.log("CATCH cancelInterview error", error)
       });
+  }
+
+  const onDelete = () => {
+    transition(CONFIRM);
   }
 
   const { mode, transition, back } = useVisualMode(
@@ -121,12 +122,19 @@ export default function Appointment(props) {
         />
       )}
 
-      {/* {mode === ERROR_SAVE && (
-        <Error 
-        onClose={() => { back(EMPTY) }}
-        message={errorSaveMessage}
-        />       
-      )} */}
+      {mode === ERROR_SAVE && (
+        <Error
+          onClose={() => { back(EMPTY) }}
+          message={errorSaveMessage}
+        />
+      )}
+
+      {mode === ERROR_DELETE && (
+        <Error
+          onClose={() => { back(EMPTY) }}
+          message={errorDeleteMessage}
+        />
+      )}
 
     </article>
   );
