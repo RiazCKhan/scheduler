@@ -20,7 +20,7 @@ export default function Application(props) {
       axios.get("/api/appointments"),
       axios.get("/api/interviewers")
     ]).then((all) => {
-       console.log('im on int', all[1].data)
+       // console.log('axios Data Check', all[1].data)
       setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }))
     }).catch((error) => {
       console.log("CATCH all api resolution error:", error)

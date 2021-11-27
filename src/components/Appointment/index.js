@@ -55,13 +55,6 @@ export default function Appointment(props) {
       });
   }
 
-  // const edit = (name, interviewer) => {
-  //   const interview = {
-  //     student: name,
-  //     interviewer
-  //   };
-  // }
-
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   )
