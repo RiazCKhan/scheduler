@@ -6,7 +6,7 @@ import Button from "components/Button";
 export default function Form(props) {
 
   const [student, setStudent] = useState(props.student || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [interviewer, setInterviewer] = useState(props.interviewer.id || null); // CHANGES MADE, set interviewer by ID and not OBJ
   const { onCancel, onSave } = props
 
   const reset = () => {
@@ -18,6 +18,8 @@ export default function Form(props) {
     reset()
     onCancel()
   }
+
+  console.log('this is form', interviewer)
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -41,7 +43,7 @@ export default function Form(props) {
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>
-          <Button confirm onClick={() => {onSave(student, interviewer)}}>Save</Button>
+          <Button confirm onClick={() => { onSave(student, interviewer) }}>Save</Button>
         </section>
       </section>
     </main>
