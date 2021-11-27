@@ -45,6 +45,7 @@ export default function Application(props) {
         })
       }).catch((error) => {
         console.log("CATCH axios put error", error)
+        return Promise.reject(error);
       })
   }
 
@@ -66,6 +67,7 @@ export default function Application(props) {
         })
       }).catch((error) => {
         console.log("CATCH axios delete error", error)
+        return Promise.reject(error);
       })
   }
 
