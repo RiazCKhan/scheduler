@@ -30,7 +30,6 @@ export function getAppointmentsForDay(state, day) {
 }
 
 
-
 export function getInterviewersForDay(state, day) {
   // Validation: if days data is empty
   if (state.days.length === 0) {
@@ -63,7 +62,6 @@ export function getInterviewersForDay(state, day) {
 }
 
 
-
 export function getInterview(state, interview) {
   // console.log('ze state', state.appointments)
   // console.log('ze interview', interview)
@@ -94,4 +92,15 @@ export function getInterview(state, interview) {
   interviewObj.interviewer = state.interviewers[interviewerID];
 
   return interviewObj;
+}
+
+
+export function spotChecker(state, day) {
+  const dayCheck = state.days.filter(element => {
+    return element.name === day;
+  })
+
+  const spots = dayCheck[0].spots;
+
+  return spots;
 }
