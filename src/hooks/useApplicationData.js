@@ -47,10 +47,23 @@ const useApplicationData = () => {
     const days = [...state.days];
     // console.log('copy of DAY ARR', days)
 
-    const day = { ...state.days[index], spots: spotsRemaining - 1 };
-    // console.log('DAY', day)
+    // console.log('SINGLE APPOINTMENT', appointment)
+    // console.log('SINGLE APPOINTMENT INTERVIEW OBJ', appointment.interview)
+
+    let day = {}
+    
+    // console.log('KRISS CONDITION', state.appointments[id].interview === undefined /// null)
+    // console.log('WHAT AM I', state.appointments[id].interview)
+    if (state.appointments[id].interview === null) {
+      // console.log('Hit')
+      day = { ...state.days[index], spots: spotsRemaining - 1 };
+    } else {
+      // console.log('Miss')
+      day = { ...state.days[index] }
+    }
 
     days.splice(index, 1, day)
+    // console.log('DAY', day)
 
     return axios.put(`/api/appointments/${id}`, { interview })
       .then((result) => {
