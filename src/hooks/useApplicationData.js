@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+
+import { spotChecker } from "helpers/selectors";
 
 const useApplicationData = () => {
 
@@ -16,7 +18,6 @@ const useApplicationData = () => {
       axios.get("/api/appointments"),
       axios.get("/api/interviewers")
     ]).then((all) => {
-      // console.log('axios Data Check', all[1].data)
       setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }))
     }).catch((error) => {
       console.log("CATCH all api resolution error:", error)
@@ -35,11 +36,27 @@ const useApplicationData = () => {
       [id]: appointment
     };
 
+    const index = state.days.findIndex((day) => {
+      return day.name === state.day
+    })
+    // console.log('INDEX', index)
+
+    const spotsRemaining = spotChecker(state, state.day)
+    // console.log('#spotChecker', spotsRemaining)
+
+    const days = [...state.days];
+    // console.log('copy of DAY ARR', days)
+
+    const day = { ...state.days[index], spots: spotsRemaining - 1 };
+    // console.log('DAY', day)
+
+    days.splice(index, 1, day)
+
     return axios.put(`/api/appointments/${id}`, { interview })
       .then((result) => {
         setState({
           ...state,
-          appointments
+          appointments, days: days
         })
       }).catch((error) => {
         console.log("CATCH axios put error", error)
@@ -57,11 +74,27 @@ const useApplicationData = () => {
       [id]: appointment
     };
 
+    const index = state.days.findIndex((day) => {
+      return day.name === state.day
+    })
+    // console.log('INDEX', index)
+
+    const spotsRemaining = spotChecker(state, state.day)
+    // console.log('#spotChecker', spotsRemaining)
+
+    const days = [...state.days];
+    // console.log('copy of DAY ARR', days)
+
+    const day = { ...state.days[index], spots: spotsRemaining + 1 };
+    // console.log('DAY', day)
+
+    days.splice(index, 1, day)
+
     return axios.delete(`/api/appointments/${id}`)
       .then((result) => {
         setState({
           ...state,
-          appointments
+          appointments, days: days
         })
       }).catch((error) => {
         console.log("CATCH axios delete error", error)
