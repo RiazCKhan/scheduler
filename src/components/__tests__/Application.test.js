@@ -1,15 +1,17 @@
 import React from "react";
 
-import { 
-  render, 
-  cleanup, 
+import {
+  render,
+  cleanup,
   waitForElement,
   fireEvent,
-  getByText, 
-  getAllByTestId, 
-  getByAltText, 
-  getByPlaceholderText, 
-  prettyDOM } from "@testing-library/react";
+  getByText,
+  getAllByTestId,
+  getByAltText,
+  getByPlaceholderText,
+  queryByText,
+  prettyDOM
+} from "@testing-library/react";
 
 import Application from "components/Application";
 
@@ -31,8 +33,6 @@ describe("Application", () => {
       })
   });
 
-
-
   it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
 
     // 1. Render App
@@ -45,7 +45,7 @@ describe("Application", () => {
     // 8. Wait until the element with the text "Lydia Miller-Jones" is displayed.
     // 9. Check that the DayListItem with the text "Monday" also has the text "no spots remaining".
 
-    const { container } = render(<Application />);
+    const { container, debug } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"))
     // console.log(prettyDOM(container));
@@ -66,23 +66,12 @@ describe("Application", () => {
 
     fireEvent.click(getByText(appointment, "Save"));
 
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
+    await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
 
+    const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday"))
+    
+    expect(getByText(day, "no spots remaining")).toBeInTheDocument();
   })
 })
-
-
-// const emptyAppointmentSlots = queryAllByTestId("empty-appointment-slot-button")
-// if (emptyAppointmentSlots.length) {
-//   let firstAppointmentButton = emptyAppointmentSlots[0]
-//   fireEvent.click(firstAppointmentButton)
-// }
-
-// const input = getByPlaceholderText("Enter Student Name");
-// fireEvent.change(input, { target: { value: "Lydia Miller-Jones" } })
-
-// const interviewerList = queryAllByTestId("interviewer-list")
-// if (interviewerList.length) {
-//   let firstInterviewer = interviewerList[0]
-//   fireEvent.click(firstInterviewer)
-// }
