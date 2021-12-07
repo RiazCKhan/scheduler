@@ -14,6 +14,8 @@ import {
   prettyDOM
 } from "@testing-library/react";
 
+import axios from "axios";
+
 import Application from "components/Application";
 
 afterEach(cleanup);
@@ -138,6 +140,39 @@ describe("Application", () => {
 
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   });
+
+  it("shows the save error when failing to save an appointment", async () => {
+    axios.put.mockRejectedValueOnce();
+
+    const { container, debug } = render(<Application />);
+
+    await waitForElement(() => getByText(container, "Archie Cohen"))
+
+    const appointments = getAllByTestId(container, "appointment")
+
+    const appointment = appointments[0]
+
+    fireEvent.click(getByAltText(appointment, "Add"))
+
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: "iTest" }
+    })
+
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+
+    fireEvent.click(getByText(appointment, "Save"));
+
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
+
+    await waitForElement(() => getByText(appointment, "Error"));
+
+    expect(getByText(appointment, "Failed to save appointment")).toBeInTheDocument();
+
+    fireEvent.click(getByAltText(appointment, 'Close'));
+
+    expect(getAllByTestId(container, 'appointment'));
+  });
+
 
 })
 
