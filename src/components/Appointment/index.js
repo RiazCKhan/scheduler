@@ -41,7 +41,7 @@ export default function Appointment(props) {
       .then(() => {
         transition(SHOW)
       }).catch((error) => {
-        transition(ERROR_SAVE, true)
+        transition(ERROR_SAVE)
         console.log("CATCH bookInterview error", error)
       })
   }
